@@ -1,0 +1,60 @@
+cliente = {
+nombrecliente,calle,ciudad
+"Jones","Main","Harrison"
+"Smith","North","Rye"
+"Hayes","Main","Harrison"
+"Curry","North","Rye"
+"Lindsay","Park","Pittsfield"
+"Turner","Putnam","Stamford"
+"Williams","Nassau","Princeton"
+"Adams","Spring","Pittsfield"
+"Johnson","Alma","Palo Alto"
+"Glenn","Sand Hill","Woodside"
+"Brooks","Senator","Brooklyn"
+"Green","Walnut","Stamford"
+}
+
+deposito = {
+nombresucursal,numerocuenta,nombrecliente,saldo
+"Downtown",101,"Johnson",500
+"Mianus",215,"Smith",700
+"Perryridge",102,"Hayes",400
+"Round Hill",305,"Turner",350
+"Perryridge",201,"Williams",900
+"Redwood",202,"Lindsay",700
+"Brighton",217,"Green",750
+"Downtown",105,"Green",850
+}
+
+prestamo = {
+nombresucursal,numeroprestamo,nombrecliente,cantidad
+"Downtown",17,"Jones",1000
+"Mianus",93,"Curry",500
+"Perryridge",15,"Hayes",1500
+"Round Hill",11,"Turner",900
+"Perryridge",25,"Glenn",2500
+"Redwood",23,"Smith",2000
+"Brighton",10,"Brooks",2200
+"Downtown",14,"Jackson",1500
+"Pownal",29,"Williams",1200
+"North Town",16,"Adams",1300
+"Downtown",18,"Johnson",2000
+}
+
+
+// Clientes que viven en la misma calle y ciudad que Smith
+R = proj(cliente.nombrecliente)
+        (sel(cliente2.calle == cliente.calle && cliente2.ciudad == cliente.ciudad)
+            (prod(cliente,(proj(calle,ciudad)(sel(nombrecliente == "Smith")(rename (cliente2)(cliente)))))))
+
+// Clientes de la sucursal Perryridge
+def Perryridge(R) = proj(nombrecliente)(sel(nombresucursal=="Perryridge")(R))
+
+A = Perryridge(prestamo)
+B = Perryridge(deposito)
+
+// Clientes que tienen un préstamo y una cuenta en la sucursal Perryridge
+S = inter(A,B)
+
+// Clientes que tienen una cuenta o un préstamo (o ambas) en la sucursal Perryridge
+T = union(B,A)

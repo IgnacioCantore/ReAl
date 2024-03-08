@@ -1,0 +1,2 @@
+// Intersección
+def inter(R,S) = diff(R, diff (R,S))

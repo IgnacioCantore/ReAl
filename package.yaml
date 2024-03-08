@@ -1,0 +1,43 @@
+name:                ReAl
+version:             0.1.0.0
+github:              "nachocantore/ReAl"
+license:             BSD3
+author:              Ignacio Cantore
+maintainer:          "example@example.com"
+copyright:           "2024 Ignacio Cantore"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/nachocantore/ReAl#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- parsec
+- haskeline >= 0.8.0.0
+- mtl
+- exceptions
+- containers
+
+library:
+  source-dirs:
+  - src
+
+executables:
+  ReAl:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - ReAl
